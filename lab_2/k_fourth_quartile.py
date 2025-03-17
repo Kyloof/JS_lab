@@ -36,4 +36,5 @@ def sentences_in_fourth_quartile():
                 print_text(sentence.strip(), '\n')
             sentence = ''
 
-sentences_in_fourth_quartile()
+if __name__ == '__main__':
+    sentences_in_fourth_quartile()

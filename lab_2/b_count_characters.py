@@ -13,4 +13,5 @@ def count_characters():
 
     return count
 
-print_text(count_characters())
+if __name__ == '__main__':
+    print_text(count_characters())

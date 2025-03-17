@@ -45,5 +45,5 @@ def sorted_sentences():
 
     return result
 
-
-print_text(sorted_sentences())
+if __name__ == '__main__':
+    print_text(sorted_sentences())

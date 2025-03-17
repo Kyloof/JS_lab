@@ -41,4 +41,5 @@ def check_word(word):
         return 1
     return 0
 
-print_text( sentences_with_multiple_conjunctions() )
+if __name__ == '__main__':
+    print_text( sentences_with_multiple_conjunctions() )

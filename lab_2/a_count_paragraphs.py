@@ -30,5 +30,5 @@ def count_paragraphs():
                 is_text = True
     return result
 
-
-print(count_paragraphs())
+if __name__ == '__main__':
+    print(count_paragraphs())

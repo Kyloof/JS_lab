@@ -20,4 +20,5 @@ def count_sentences():
             is_skipping = False
     return sentences_with_capital/sentences_amount
 
-print_text(count_sentences())
+if __name__ == '__main__':
+    print_text(count_sentences())

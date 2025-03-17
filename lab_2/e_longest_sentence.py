@@ -36,7 +36,5 @@ def longest_sequence():
             is_skipping = False
     return result
 
-        
-            
-
-print_text(longest_sequence())
+if __name__ == '__main__':
+    print_text(longest_sequence())

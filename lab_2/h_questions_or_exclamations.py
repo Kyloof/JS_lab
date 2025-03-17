@@ -28,4 +28,5 @@ def questions_or_exclamations():
     print_text(result)
     return result
 
-questions_or_exclamations()
+if __name__ == '__main__':
+    questions_or_exclamations()

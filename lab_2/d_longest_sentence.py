@@ -29,4 +29,5 @@ def longest_sentence():
 
     return longest
 
-print_text( longest_sentence() )
+if __name__ == '__main__':
+    print_text( longest_sentence() )

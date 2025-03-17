@@ -30,4 +30,5 @@ def find_first_multiple_sub_clause():
     if comma_count > 1:
        return current
 
-print_text( find_first_multiple_sub_clause() )
+if __name__ == '__main__':
+    print_text( find_first_multiple_sub_clause() )

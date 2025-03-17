@@ -22,4 +22,5 @@ def sentences_with_less_than_four_words():
             sentence = ''
             words_amount = 0
 
-sentences_with_less_than_four_words()
+if __name__ == '__main__':
+    sentences_with_less_than_four_words()

@@ -17,5 +17,5 @@ def first_twenty_sentences():
             print_text(sentence.strip(), sentences_amount)
             sentence = ''
             
-
-first_twenty_sentences()
+if __name__ == '__main__':
+    first_twenty_sentences()

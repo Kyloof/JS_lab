@@ -1,5 +1,8 @@
 import sys
 
+sys.stdin.reconfigure(encoding='utf-8')
+sys.stdout.reconfigure(encoding='utf-8')
+
 def file_to_string():
     idx = 0
     result = ""
@@ -38,3 +41,5 @@ def print_text(*args):
         except TypeError:
             sys.stdout.write("Wrong value type given")
 
+def check_sentence_end(symbol):
+    return symbol == '.' or symbol == '' or symbol == '!' or symbol == '?'

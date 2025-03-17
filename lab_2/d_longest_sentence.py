@@ -1,4 +1,4 @@
-from utils import print_text, file_to_string
+from utils import *
 
 def longest_sentence():
     text = file_to_string()
@@ -6,15 +6,23 @@ def longest_sentence():
     current = ""
     longest = ""
 
+    #prevents counting the space after the '.'
+    sentence_end = False
+
     for letter in text:
-        if letter != '.' and letter != '!' and letter != '?' and letter != '':
-            # \n doesn't end a sentence but is not a part of one
-            if letter != '\n':
-                current += letter
-        else:
+        if sentence_end:
+            sentence_end = False
+            continue
+
+        if letter != '\n':
+            current += letter
+
+        if check_sentence_end(letter):
             if  len(current) > len(longest):
                 longest = current
             current = ""
+            sentence_end = True
+
     #check the last string sequence
     if len(current) > len(longest):
         longest = current

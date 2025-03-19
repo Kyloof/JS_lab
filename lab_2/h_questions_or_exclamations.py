@@ -25,7 +25,6 @@ def questions_or_exclamations():
             current = ""
             sentence_end = True
 
-    print_text(result)
     return result
 
 if __name__ == '__main__':

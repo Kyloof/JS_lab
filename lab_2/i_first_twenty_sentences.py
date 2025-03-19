@@ -1,21 +1,26 @@
-from utils import file_to_string, print_text
+from utils import file_to_string, print_text, check_sentence_end
 
 def first_twenty_sentences():
     text = file_to_string()
     sentence = ''
     sentences_amount = 0
+    result = ''
+
     for letter in text:
         if sentences_amount == 20:
-            return
+            return result
        
         if letter == '\n':
             sentence += ' '
         else:
             sentence += letter
-        if letter == '.' or letter == '!' or letter == '?' or letter == '':
+
+        if check_sentence_end(letter):
             sentences_amount += 1
-            print_text(sentence.strip(), sentences_amount)
+            result += sentence.strip() + '\n'
             sentence = ''
-            
+
+    return result
+
 if __name__ == '__main__':
-    first_twenty_sentences()
+    print(first_twenty_sentences())

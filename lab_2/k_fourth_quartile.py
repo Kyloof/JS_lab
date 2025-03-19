@@ -1,40 +1,34 @@
 import sys
-from utils import file_to_string, print_text
+from utils import file_to_string, print_text, check_sentence_end
 
 def sentences_in_fourth_quartile():
     text = file_to_string()
     
     sentence = ''
-    max_length = -1
-    min_length = sys.maxsize
     sentences_amount = 0
     sentence_length = 0
 
+ 
+
+    sentences = {}
+
     for letter in text:
         sentence += letter
-        if letter == '.' or letter == '!' or letter == '?' or letter == '': 
-            sentence_length = len(sentence.strip())  
-
-            max_length = max(max_length, sentence_length)
-            min_length = min(min_length, sentence_length)
-
+        if check_sentence_end(letter): 
+            sentences[sentence.lstrip().rstrip()] = len(sentence)
+           
             sentence = ''
             sentences_amount += 1
+    print(sentences)
+    sentences = dict(sorted(sentences.items(), key=lambda item: item[1]))
+    print(sentences)
 
     fourth_quartile_start = sentences_amount * 3 // 4
 
+    return list(sentences.keys())[fourth_quartile_start:]
+    
   
-    sentence = ''
-    for letter in text:
-        if letter == '\n':
-            sentence += ' '
-        else:
-            sentence += letter
-        if letter == '.' or letter == '!' or letter == '?' or letter == '': 
-            sentence_length = len(sentence.strip())
-            if sentence_length >= max_length * 0.75:  
-                print_text(sentence.strip(), '\n')
-            sentence = ''
+    
 
 if __name__ == '__main__':
-    sentences_in_fourth_quartile()
+    print(sentences_in_fourth_quartile())

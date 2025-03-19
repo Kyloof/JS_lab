@@ -1,5 +1,9 @@
 import sys
 
+sys.stdin.reconfigure(encoding='utf-8')
+sys.stdout.reconfigure(encoding='utf-8')
+
+
 def count_paragraphs():
     is_text = False
     prev_line_empty = False
@@ -12,7 +16,6 @@ def count_paragraphs():
         if line == '-----':
             return result
         elif is_text:
-            print(line)
             if line == '':
                 result += 1
         else:

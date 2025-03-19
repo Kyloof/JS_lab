@@ -21,7 +21,6 @@ def sentences_with_less_than_four_words():
         if check_sentence_end(letter):
             if (words_amount <= 4):
                 result += sentence.strip() + '\n'
-                print_text(sentence.strip())
             sentence = ''
             words_amount = 0
     
@@ -29,4 +28,4 @@ def sentences_with_less_than_four_words():
 
 
 if __name__ == '__main__':
-    sentences_with_less_than_four_words()
+    print(sentences_with_less_than_four_words())

@@ -10,7 +10,7 @@ for line in sys.stdin:
     line = ' '.join(line.split())
     if line == '-----':
         break
-    elif (is_text):
+    elif is_text:
         sys.stdout.write(line + '\n')
     else:
         idx += 1

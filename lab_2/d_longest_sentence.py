@@ -1,4 +1,4 @@
-from utils import *
+from utils import file_to_string, check_sentence_end, print_text
 
 def longest_sentence():
     text = file_to_string()

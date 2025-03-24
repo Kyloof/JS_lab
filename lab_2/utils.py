@@ -1,5 +1,6 @@
 import sys
 
+
 sys.stdin.reconfigure(encoding='utf-8')
 sys.stdout.reconfigure(encoding='utf-8')
 
@@ -8,6 +9,7 @@ def file_to_string():
     result = ""
     preambule_acc = ""
     is_text = False
+    prev_line_empty = False
     
     for line in sys.stdin:
         line = line.lstrip().rstrip()

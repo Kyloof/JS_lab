@@ -1,16 +1,12 @@
-from entry_to_dict import entry_to_dict
+from pprint import pprint
 
-def entry_to_dict(log: list[tuple]):
+from entry_to_dict import entry_to_dict
+from read_log import *
+
+def log_to_dict(log: list[tuple]):
     result = {}
 
     for entry in log:
         result[entry[1]] = entry_to_dict(entry)
 
-    return result    
-        
-
-        
-        
-        
-    
-   
+    return result

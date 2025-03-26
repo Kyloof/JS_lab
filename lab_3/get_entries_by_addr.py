@@ -13,10 +13,10 @@ def get_entries_by_addr(log: tuple, addr: str):
 
     if validate_addr():  
         for line in log:
-            if line[-2] == addr or line[2] == addr:  
+            if line[-3] == addr or line[2] == addr:
                 result.append(line)
             
     
     return result
 
-print(get_entries_by_addr(read_log(), '192.168.202.79'))
+print(get_entries_by_addr(read_log()[:2], '192.168.229.251'))

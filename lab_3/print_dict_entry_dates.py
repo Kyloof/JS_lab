@@ -30,9 +30,6 @@ def print_dict_entry_dates(log: dict):
     start_2_count = 0
 
     requests_count = 0
-
-    #z jakiegoś powodu niektóre logi ucina, nie wiem dlaczego
-
     for k,v in log.items():
         ip = v["id.orig_h"]
         if ip not in hosts_info:

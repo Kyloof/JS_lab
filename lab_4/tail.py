@@ -25,7 +25,7 @@ def tail():
 def from_file(filename, lines):
     stack = deque(maxlen=lines)
 
-    with open(filename, "r") as file:
+    with open(filename, "r", encoding="utf-8") as file:
         file.seek(0)
 
         for line in file:
@@ -45,7 +45,7 @@ def from_stdin(lines):
     stdout_stack(stack)
 
 def follow(pos, filename, n):
-    with open(filename, "r") as file:
+    with open(filename, "r", encoding="utf-8") as file:
         file.seek(pos)
 
         while True:
@@ -63,7 +63,6 @@ def follow(pos, filename, n):
             else:
                 sys.stdout.write(line)
                 sys.stdout.flush()
-
 
 def stdout_stack(stack):
     while stack:

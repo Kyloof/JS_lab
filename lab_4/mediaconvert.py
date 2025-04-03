@@ -1,42 +1,32 @@
 from subprocess import run
-from os import path, getenv, makedirs
-import datetime
 import filetype
-import csv
+from utils import save_log, get_filename, create_output_path, get_path_env
 
-#python3 -m pip install filetype
+def mediaconvert(input_path, convert_format):
 
-
-
-def mediaconvert(path_name, convert_format):
-    file_name, file_ext = path.splitext(path.basename(path_name))
-    directory = getenv("CONVERTED_DIR","lab_4/converted/") #check for the left PATH variable, if it doesnt exist save to right arg
-    makedirs(directory, exist_ok=True) #if folder doesnt exist, create it
-    ts = datetime.datetime.now().strftime("%Y%m%d")
-    output = directory+ts+'-'+file_name+'.'+convert_format
-    if filetype.is_image(path_name):
+    file_name = get_filename(input_path)
+    directory = get_path_env("CONVERTED_DIR", "lab_4/converted/")
+    output = create_output_path(directory, file_name, convert_format)
+    
+    if filetype.is_image(input_path):
         try:
             program = "magick"
-            run(["magick", path_name, output])
+            run(["magick", input_path, output])
         except RuntimeError:
             print("Failed to convert the image")
     else:
         try:
             program = "ffmpeg"
-            run(["ffmpeg", "-i", path_name, output])
+            run(["ffmpeg", "-i", input_path, output])
         except RuntimeError:
             print("Failed to convert the video")
     
-    with open ("lab_4/history.csv", "a", newline='') as file:
-        writer = csv.writer(file)
-        writer.writerow(["ts", "path_name", "convert_format", "output", "program"])  
-        writer.writerow([ts + str(datetime.datetime.now().hour), path_name, convert_format, output, program])
-
+    save_log(input_path, output, convert_format, program)
 
     
  
-
-
-mediaconvert("/Users/janku/Desktop/JS/JS_lab/lab_4/image.png", "heic")
-
 #export CONVERTED_DIR="sciezka"
+
+if __name__ == "__main__":
+    mediaconvert("lab_4/image.png", "heic")
+    #mediaconvert("lab_4/video1.mp4", "avi")

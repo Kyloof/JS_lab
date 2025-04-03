@@ -1,6 +1,11 @@
-ts,path_name,convert_format,output
-2025040310,/Users/janku/Desktop/JS/JS_lab/lab_4/video1.mp4,avi,here/converted/20250403-video1.avi
 ts,path_name,convert_format,output,program
 2025040310,/Users/janku/Desktop/JS/JS_lab/lab_4/video1.mp4,avi,here/converted/20250403-video1.avi,ffmpeg
-ts,path_name,convert_format,output,program
 2025040310,/Users/janku/Desktop/JS/JS_lab/lab_4/image.png,heic,here/converted/20250403-image.heic,magick
+2025040320,lab_4/image.png,heic,lab_4/converted/20250403-image.heic,magick
+2025040320,lab_4/image.png,heic,lab_4/converted/20250403-image.heic,magick
+2025040320,lab_4/image.png,heic,lab_4/converted/20250403-image.heic,magick
+2025040320,lab_4/image.png,heic,lab_4/converted/20250403-image.heic,magick
+2025040320,lab_4/video1.mp4,avi,lab_4/converted/20250403-video1.avi,ffmpeg
+2025040320,lab_4/video1.mp4,avi,here/converted20250403-video1.avi,ffmpeg
+2025040320,lab_4/video1.mp4,avi,lab_4/converted/20250403-video1.avi,ffmpeg
+2025040320,lab_4/video1.mp4,avi,here/converted/20250403-video1.avi,ffmpeg

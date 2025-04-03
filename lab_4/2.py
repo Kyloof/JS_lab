@@ -1,7 +1,7 @@
 from os import environ, listdir, path, pathsep, access, X_OK
 
 def print_path():
-    for dir_path in environ["PATH"].split(";"):
+    for dir_path in environ["PATH"].split(pathsep):
         if (dir_path != ''):
             print(dir_path)
 
@@ -13,7 +13,7 @@ def print_path_with_exe():
             exe_files = []
             for file in files:
                 full_path = path.join(dir_path, file)
-                if file.endswith(".exe") or access(full_path, X_OK):
+                if access(full_path, X_OK):
                     exe_files.append(file)
             print(exe_files, '\n')
 

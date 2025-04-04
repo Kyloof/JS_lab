@@ -5,7 +5,7 @@ def is_in_args(envar: str):
     if len(sys.argv) == 1:
         return True
 
-    for argv in sys.argv:
+    for argv in sys.argv[1:]:
         if argv in envar:
             return True
 

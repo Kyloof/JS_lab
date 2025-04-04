@@ -1,8 +1,9 @@
 from os import environ, listdir, path, pathsep, access, X_OK
+import argparse as ap
 
 def print_path():
     for dir_path in environ["PATH"].split(";"):
-        if (dir_path != ''):
+        if dir_path != '':
             print(dir_path)
 
 def print_path_with_exe():
@@ -13,13 +14,18 @@ def print_path_with_exe():
             exe_files = []
             for file in files:
                 full_path = path.join(dir_path, file)
-                if file.endswith(".exe") or access(full_path, X_OK):
+                if access(full_path, X_OK):
                     exe_files.append(file)
             print(exe_files, '\n')
 
 
-
-            
 if __name__ == "__main__":
-    #print_path()
-    print_path_with_exe()
+    parser = ap.ArgumentParser()
+    parser.add_argument('--executable', '-e', action='store_true')
+
+    args = parser.parse_args()
+
+    if args.executable:
+        print_path_with_exe()
+    else:
+        print_path()

@@ -1,9 +1,12 @@
 import csv, datetime
 from os import path, getenv, makedirs
+from dotenv import load_dotenv
+
+load_dotenv()
 
 def save_log(input_path, output_path, format, program):
     timestamp = datetime.datetime.now().strftime("%Y%m%d%H")
-    log_file = "lab_4/history.csv"
+    log_file = f"{getenv("CONVERTED_DIR","converted/")}history.csv"
 
     with open(log_file, "a", newline='') as file:
         writer = csv.writer(file)

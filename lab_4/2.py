@@ -2,8 +2,8 @@ from os import environ, listdir, path, pathsep, access, X_OK
 import argparse as ap
 
 def print_path():
-    for dir_path in environ["PATH"].split(";"):
-        if dir_path != '':
+    for dir_path in environ["PATH"].split(pathsep):
+        if (dir_path != ''):
             print(dir_path)
 
 def print_path_with_exe():

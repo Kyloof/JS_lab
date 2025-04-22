@@ -107,11 +107,13 @@ def get_streets():
     return result
 
 
-pprint(get_dates())
-pprint(get_position())
-pprint(get_stations())
-pprint(change_names())
-print(verify_stations())
-pprint(get_stations())
-pprint(get_streets())
+
+if __name__ == "main":
+    pprint(get_dates())
+    pprint(get_position())
+    pprint(get_stations())
+    pprint(change_names())
+    print(verify_stations())
+    pprint(get_stations())
+    pprint(get_streets())
         

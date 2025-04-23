@@ -17,8 +17,8 @@ def configure_logging():
     formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
 
     stdout_handler = logging.StreamHandler(sys.stdout)
-    stdout_handler.setLevel(logging.DEBUG)
-    stdout_handler.addFilter(lambda record: record.levelno < logging.ERROR)
+    stdout_handler.setLevel(logging.DEBUG) 
+    stdout_handler.addFilter(lambda record: record.levelno < logging.ERROR)    #everything below error goes to stdout
     stdout_handler.setFormatter(formatter)
 
     stderr_handler = logging.StreamHandler(sys.stderr)
@@ -61,7 +61,7 @@ def get_random_station(start_date: datetime, end_date: datetime, stations_dict: 
                         break
 
     if not filtered_stations:
-        logger.warning(f"No stations found with measurement type '{measure_type}' in the specified date range.")
+        logger.warning(f"No stations found for measurement type '{measure_type}' in the given date range.")
     return random.choice(filtered_stations) if filtered_stations else None
 
 
@@ -86,7 +86,7 @@ def calculate_stats_for_station(station_name, start_date, end_date, measure_type
             if not found_measure:
                 logger.warning(f"Station '{station_name}' does not support measurement type '{measure_type}'.")
             if not filtered_values:
-                logger.warning(f"No available measurements for station '{station_name}', measurement type '{measure_type}', and date range.")
+                logger.warning(f"No available meausurements for station '{station_name}', measurement type '{measure_type}', and date range.")
                 return None, None
             filtered_values = list(map(float,filtered_values))
     if len(filtered_values) > 1:
@@ -101,11 +101,11 @@ def main():
     logger = logging.getLogger()
     parser = argparse.ArgumentParser(
         prog='Air Quality CLI',
-        description='Analyze air quality measurements from various monitoring stations',
+        description='Analyze air quality measurements from stations',
     )
 
     try:
-        logger.info("Opening stacje.csv file and measurements folder...")
+        logger.info("Opening csv file and measurements folder...")
         stations_dict = parse(Path("lab_5/data/stacje1.csv"), Path("lab_5/data/measurements"))
         logger.info("Successfully opened data files.")
     except FileNotFoundError as e:
@@ -145,7 +145,7 @@ def main():
         if station:
             print(f"Random station: {station[0]}\n Address: {station[1]}")
         else:
-            print("No station found active within the specified date range.")
+            print("No station found active in the given date range.")
 
     elif args.command == "measure":
         avg, std = calculate_stats_for_station(args.station, start_date, end_date, args.object, stations_dict)
@@ -153,7 +153,7 @@ def main():
             print(f"Average {args.object}: {avg:.2f}")
             print(f"Standard deviation: {std:.2f}")
         else:
-            print("No data found for the specified station, measurement type, or date range.")
+            print("No data found for the given station, measurement type, or date range.")
 
     else:
         parser.print_help()

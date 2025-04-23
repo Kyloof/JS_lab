@@ -23,7 +23,7 @@ def parse(metadata: Path, measurements:Path):
         reader = transposed_reader(f"{measurements}/{file}")
 
         for row in reader:
-            logger.debug(f"Read {len(str(row).encode('utf-8'))} bytes from line: {str(row).strip()}")
+            #logger.debug(f"Read {len(str(row).encode('utf-8'))} bytes from line: {str(row).strip()}")
             station_code = row['Kod stacji']
             stanowisko_code = row['Kod stanowiska']
 

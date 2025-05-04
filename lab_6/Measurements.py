@@ -25,7 +25,10 @@ class Measurements:
                 self.csv_metadata[False][keys] = csv_path
 
     def __len__(self):
-        return len(self.csv_metadata)
+        for keys, path in list(self.csv_metadata[False].items()):
+            load_timeseries(path, self.loaded_timeseries)
+            mark_as_loaded(self.csv_metadata, keys, path)
+        return len(self.loaded_timeseries)
     
     def __contains__(self, parameter_name: str):
         for keys in self.csv_metadata[False].keys():
@@ -101,9 +104,9 @@ if __name__ == "__main__":
     print(len(m1))
     print('2g' in m1)
 
-    list1 = (m1.get_by_station("DsOsieczow21"))
-    for el in list1:
-        print(el)
+    #list1 = (m1.get_by_station("DsOsieczow21"))
+    #for el in list1:
+    #    print(el)
     
     #pprint(m1.detect_all_anomalies([OutlierDetector(5), ZeroSpikeDetector(), ThresholdDetector(threshold=70.0)]))
-    pprint(m1.validate())
+    #pprint(m1.validate())

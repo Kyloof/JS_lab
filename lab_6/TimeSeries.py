@@ -68,3 +68,12 @@ class TimeSeries:
                 return None
 
         return None
+    
+    def __str__(self):
+        n = len(self.dates)
+        return (
+            f"TimeSeries for station '{self.station_code}' measuring '{self.measure_name}'\n"
+            f"Average time: {self.avg_time}, Unit: {self.unit}\n"
+            f"Total records: {n}\n"
+
+        )

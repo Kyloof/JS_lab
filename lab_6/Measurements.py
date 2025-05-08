@@ -3,7 +3,7 @@ from pprint import pprint
 from pathlib import Path
 from SeriesValidator import SeriesValidator
 from utils import load_timeseries, mark_as_loaded
-from SeriesValidator import OutlierDetector, ZeroSpikeDetector, ThresholdDetector
+from SeriesValidator import OutlierDetector, ZeroSpikeDetector, ThresholdDetector, CompositeValidator
 import csv
 
 
@@ -126,12 +126,15 @@ if __name__ == "__main__":
             True,
         )
     )
-"""
     list1 = m1.get_by_station("DsOsieczow21")
     for el in list1:
         print(el)
 
-    
+    pprint(m1.validate())
+
+
+    """
+
     pprint(
         m1.detect_all_anomalies(
             [OutlierDetector(5), ZeroSpikeDetector(), ThresholdDetector(threshold=70.0)]
@@ -139,5 +142,4 @@ if __name__ == "__main__":
     )
     
 
-    pprint(m1.validate())
 """

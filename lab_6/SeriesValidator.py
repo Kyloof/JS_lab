@@ -89,7 +89,7 @@ class ZeroSpikeDetector(SeriesValidator):
                 null_count = 0
 
         if null_count >= 3:
-            result[-null_count:] = 1 * null_count
+            result[-null_count:] = [1] * null_count
 
         return result
 

@@ -1,9 +1,13 @@
 import os
-from pprint import pprint
+from pprint import pp, pprint
 from pathlib import Path
 from SeriesValidator import SeriesValidator
 from utils import load_timeseries, mark_as_loaded
-from SeriesValidator import OutlierDetector, ZeroSpikeDetector, ThresholdDetector, CompositeValidator
+from SeriesValidator import (
+    OutlierDetector,
+    ZeroSpikeDetector,
+    ThresholdDetector,
+)
 import csv
 
 
@@ -17,7 +21,7 @@ class Measurements:
         - load paths into a dictionary
         - if someone wants to use them, they can just give appriopariate data, eg. '2023', 'O3', '1g', 
         and then if such data is stored it will be read from the csv that is stored in a dictionary.
-        - lazy load ✅💥💥💯
+        - lazy load ✅💥💥💯💯💯💯💯💯💯💯💯💯💯💯💯💯💯💯💯💯💯💯💯💯💯💯💯💯💯💯💯💯💯💯💯
         """
         for csv_path in self.path.glob("*.csv"):
             keys = tuple(os.path.split(csv_path)[1].replace(".csv", "").split("_"))
@@ -31,7 +35,7 @@ class Measurements:
                 reader = csv.reader(f)
                 first_row = next(reader, None)
                 if first_row:
-                    count += len(first_row)
+                    count += len(first_row) - 1
         for keys, values in self.csv_metadata[True].items():
             count += len(values)
         return count
@@ -50,9 +54,9 @@ class Measurements:
     def get_by_parameter(self, param_name: str):
         results = []
 
-        for time_serie in self.loaded_timeseries:
-            if time_serie.measure_name == param_name:
-                results.append(time_serie)
+        for keys, values in self.csv_metadata[True].items():
+            if param_name == keys[1]:
+                results += values
 
         for keys, path in list(self.csv_metadata[False].items()):
             if param_name == keys[1]:
@@ -73,6 +77,7 @@ class Measurements:
             for time_serie in timeseries:
                 if time_serie.station_code == station_code:
                     results.append(time_serie)
+
         return results
 
     def detect_all_anomalies(
@@ -104,7 +109,9 @@ class Measurements:
             for time_serie in values:
                 result = []
                 for validator in validators:
-                    result.append(validator.analyze(time_serie))
+                    validation = validator.analyze(time_serie)
+                    if validation:
+                        result.append(validation)
                 results[time_serie] = result
 
         return results
@@ -115,6 +122,8 @@ if __name__ == "__main__":
     print(len(m1))
     print("24g" in m1)
     print("2g" in m1)
+
+    pprint(m1.get_by_parameter("PM10"))
 
     pprint(
         m1.detect_all_anomalies(
@@ -131,7 +140,6 @@ if __name__ == "__main__":
         print(el)
 
     pprint(m1.validate())
-
 
     """
 

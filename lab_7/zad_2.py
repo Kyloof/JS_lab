@@ -26,7 +26,6 @@ def atleast(n ,pred, iterable: Iterable) -> bool:
             if n == 0:
                 return True
 
-
     return False
 
 def atmost(n, pred, iterable: Iterable) -> bool:
@@ -40,6 +39,5 @@ def atmost(n, pred, iterable: Iterable) -> bool:
 
             if n < 0:
                 return False
-
 
     return True

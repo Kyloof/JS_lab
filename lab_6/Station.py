@@ -1,9 +1,8 @@
 from datetime import datetime
 
-
 class Station:
     def __init__(self, code:str, international_code:str, name:str, old_code:str, start:datetime, end:datetime, station_type:str,
-                 area_type:str, station_kind:str, voivodeship:str, city:str, address:str, latitude:float, longitude:float):
+                 area_type:str, station_kind:str, voivodeship:str, city:str, address:str, latitude:float, longitude:float) -> None:
         self.code = code
         self.international_code = international_code
         self.name = name
@@ -19,16 +18,19 @@ class Station:
         self.latitude = latitude
         self.longitude = longitude
 
-    def __eq__(self, other):
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other,Station):
+            return NotImplemented
+
         return self.code == other.code
 
-    def __str__(self):
+    def __str__(self) -> str:
         return (f"Station name: {self.name} \nStation code: {self.code} \nInternational station code: {self.international_code} \nOld station code: {self.old_code}\n"
                 f"Opened in: {self.start} \nClosed in {self.end} \nStation type: {self.station_type} \nStation kind: {self.station_kind}\n"
                 f"Surrounded area type: {self.area_type} \nVoivodeship: {self.voivodeship} \nCity: {self.city} \nAddres: {self.address}\n"
                 f"Latitude: {self.latitude} Longitude: {self.longitude}")
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f"{self.__class__.__name__}({vars(self)})"
 
 
@@ -49,5 +51,7 @@ if __name__ == "__main__":
         latitude=52.2297,
         longitude=21.0122
     )
+
+
 
     print(s)

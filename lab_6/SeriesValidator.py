@@ -14,14 +14,14 @@ class SeriesValidator(metaclass=ABCMeta):
 
 class OutlierDetector(SeriesValidator):
 
-    def __init__(self, k:float):
+    def __init__(self, k:float) -> None:
         self.k = k
 
     def analyze(self, series: TimeSeries) -> List[str]:
 
-        validated = self._get_validated(series)
+        validated: List[int] = self._get_validated(series)
 
-        result = []
+        result: List[str] = []
 
         for idx, val in enumerate(validated):
             if val == 1:
@@ -30,12 +30,12 @@ class OutlierDetector(SeriesValidator):
         return result
 
     def _get_validated(self, series: TimeSeries) -> list[int]:
-        result = [0]*len(series.measurements)
+        result:List[int] = [0]*len(series.measurements)
 
-        mean = series.mean
-        std = series.stddev
+        mean: float | None = series.mean
+        std: float | None = series.stddev
 
-        if mean is None:
+        if mean is None or std is None:
             raise ValueError("Invalid TimeSeries")
 
         for idx,measurement in enumerate(series.measurements):
@@ -48,13 +48,13 @@ class ZeroSpikeDetector(SeriesValidator):
 
     def analyze(self, series: TimeSeries) -> List[str]:
 
-        validated = self._get_validated(series)
+        validated: List[int] = self._get_validated(series)
 
-        result = []
+        result: List[str] = []
 
-        series_detected = False
-        start_idx = 0
-        end_idx = 0
+        series_detected: bool = False
+        start_idx: int = 0
+        end_idx: int = 0
 
         for idx, val in enumerate(validated):
             if val == 1:
@@ -76,9 +76,9 @@ class ZeroSpikeDetector(SeriesValidator):
         return result
 
     def _get_validated(self, series: TimeSeries) -> list[int]:
-        result = [0]*len(series.measurements)
+        result: List[int] = [0]*len(series.measurements)
 
-        null_count = 0
+        null_count: int = 0
 
         for idx, measurement in enumerate(series.measurements):
             if measurement in [0, None]:
@@ -95,23 +95,25 @@ class ZeroSpikeDetector(SeriesValidator):
 
 class ThresholdDetector(SeriesValidator):
 
-    def __init__(self, threshold:float):
+    def __init__(self, threshold:float) -> None:
         self.threshold = threshold
 
     def analyze(self, series: TimeSeries) -> List[str]:
 
-        validated = self._get_validated(series)
+        validated: List[int] = self._get_validated(series)
 
-        result = []
+        result: List[str] = []
 
         for idx, val in enumerate(validated):
             if val == 1:
-                result.append(f"Threshold exceeded on {series.dates[idx]} by { series.measurements[idx] - self.threshold}")
+                measurement = series.measurements[idx]
+                if measurement is not None:
+                    result.append(f"Threshold exceeded on {series.dates[idx]} by { measurement - self.threshold}")
 
         return result
 
     def _get_validated(self, series: TimeSeries) -> list[int]:
-        result = [0] * len(series.measurements)
+        result: List[int] = [0] * len(series.measurements)
 
         for idx, measurement in enumerate(series.measurements):
             if measurement is not None and measurement>self.threshold:
@@ -121,7 +123,7 @@ class ThresholdDetector(SeriesValidator):
 
 class CompositeValidator(SeriesValidator):
 
-    def __init__(self,validators: list[SeriesValidator] ,mode: str):
+    def __init__(self,validators: list[SeriesValidator] ,mode: str) -> None:
         if mode.upper() not in ['OR', 'AND']:
             raise ValueError("Invalid mode (OR, AND)")
 
@@ -129,9 +131,9 @@ class CompositeValidator(SeriesValidator):
         self.validators = validators
 
     def analyze(self, series: TimeSeries) -> List[str]:
-        summary = self._get_validated(series)
+        summary: List[int] = self._get_validated(series)
 
-        result = []
+        result: List[str] = []
 
         if self.mode == 'OR':
             for idx, summ in enumerate(summary):
@@ -146,10 +148,10 @@ class CompositeValidator(SeriesValidator):
 
     def _get_validated(self, series: TimeSeries) -> list[int]:
 
-        result = [0]*len(series.measurements)
+        result: List[int] = [0]*len(series.measurements)
 
         for validator in self.validators:
-            tmp = validator._get_validated(series)
+            tmp: List[int] = validator._get_validated(series)
 
             result = [sum(x) for x in zip(result, tmp)]
 

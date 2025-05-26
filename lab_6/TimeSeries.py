@@ -1,8 +1,9 @@
 from datetime import datetime, date
-from typing import List
+from typing import List, Tuple, Union
+
 
 class TimeSeries:
-    def __init__(self, measure_name:str, station_code:str, avg_time:str, unit:str, dates: List[datetime] = [], measurements: List[float | None] = []):
+    def __init__(self, measure_name:str, station_code:str, avg_time:str, unit:str, dates: List[datetime] = [], measurements: List[float | None] = []) -> None:
         if len(dates) != len(measurements):
             raise ValueError("Number of dates and measurements don't match!")
 
@@ -13,7 +14,7 @@ class TimeSeries:
         self.dates = dates if dates is not None else []
         self.measurements = measurements if measurements is not None else []
 
-    def __getitem__(self, key: int | slice | date | datetime):
+    def __getitem__(self, key: int | slice | date | datetime) -> Union[Tuple[datetime, (float | None)], List[Tuple[datetime, float|None]], (float | None)]:
         if isinstance(key,int):
             return self.dates[key], self.measurements[key]
 
@@ -34,11 +35,11 @@ class TimeSeries:
         raise KeyError
 
     @property
-    def mean(self):
+    def mean(self) -> (float | None):
         if self.measurements is not None and self.measurements != []:
             # Can't use sum(self.measurements)/len(self.measurements) cuz of Nones :(
-            sum_all = 0
-            count = 0
+            sum_all: float = 0
+            count: int = 0
             for measure in self.measurements:
                 if measure is not None:
                     sum_all+=measure
@@ -52,11 +53,15 @@ class TimeSeries:
         return None
 
     @property
-    def stddev(self):
+    def stddev(self) -> (float | None):
         if self.measurements is not None and self.measurements != []:
-            mean = self.mean
-            upper_sum = 0
-            count = 0
+            mean: float | None = self.mean
+
+            if mean is None:
+                return None
+
+            upper_sum: float = 0
+            count: int = 0
             for measure in self.measurements:
                 if measure is not None:
                     upper_sum += (measure-mean)**2
@@ -69,11 +74,10 @@ class TimeSeries:
 
         return None
     
-    def __str__(self):
-        n = len(self.dates)
+    def __str__(self) -> str:
+        n: int = len(self.dates)
         return (
             f"TimeSeries for station '{self.station_code}' measuring '{self.measure_name}'\n"
             f"Average time: {self.avg_time}, Unit: {self.unit}\n"
             f"Total records: {n}\n"
-
         )

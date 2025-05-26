@@ -22,11 +22,16 @@ def median(xs: list[int]):
         )
 
     length = len(xs)
-    return get_median(sorted(xs), 0, length) if length > 1 else xs[0]
+    return (
+        None
+        if length == 0
+        else (get_median(sorted(xs), 0, length) if length > 1 else xs[0])
+    )
 
 
 print(median([1, 2, 3, 4, 5, 6]))
 print(median([321, 32, 1, 0, 4, 5, 6]))
+print(median([]))
 
 
 def pierwiastek(x: float, epsilon: float):

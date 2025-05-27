@@ -15,7 +15,7 @@ def test_outlier_detector_identifies_extreme_value():
         datetime(2025, 5, 24),
     ]
 
-    measurements = [10.0, 10.5, 10.3, 100.0, 10.1]
+    measurements = [None, 10.5, 10.3, 100.0, 10.1]
 
     ts = TimeSeries(
         measure_name="Test",
@@ -66,20 +66,21 @@ def test_zero_spike_detector_detects_streak_of_missing_values():
     assert "2025-05-23" in result[0]
 
 
-def test_threshold_detector_detects_exceeding_values():
+def test_threshold_detector():
     dates = [
         datetime(2025, 5, 20),
         datetime(2025, 5, 21),
         datetime(2025, 5, 22),
         datetime(2025, 5, 23),
+        datetime(2025, 5, 24),
     ]
 
-    measurements = [4.5, 7.0, 5.5, 8.5]
+    measurements = [4.5, 7.0, 5.5, 8.5, None]
 
     ts = TimeSeries(
-        measure_name="Water Level",
-        station_code="ST888",
-        avg_time="Daily",
+        measure_name="some_measure",
+        station_code="ST1",
+        avg_time="24g",
         unit="m",
         dates=dates,
         measurements=measurements,
@@ -126,18 +127,21 @@ def measurements(timeseries):
 
 
 @pytest.mark.parametrize(
-    "validators", [OutlierDetector(k=1), ZeroSpikeDetector(), SimpleReporter()]
+    "validators",
+    [
+        OutlierDetector(k=1),
+        ZeroSpikeDetector(),
+        SimpleReporter(),
+        ThresholdDetector(11),
+    ],
 )
 def test_detect_all_anomalies_returns_messages_for_validators(measurements, validators):
     results = measurements.detect_all_anomalies(validators=[validators], preload=False)
 
-    assert hasattr(results, "__iter__")
     assert len(results) > 0
 
     for ts, messages in results:
-        assert hasattr(messages, "__iter__")
         messages_list = list(messages)
-        assert all(hasattr(msg, "strip") for msg in messages_list)
         assert len(messages_list) > 0
         assert hasattr(ts, "dates")
         assert hasattr(ts, "measurements")

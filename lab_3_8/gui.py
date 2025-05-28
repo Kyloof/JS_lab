@@ -6,9 +6,7 @@ from read_log import read_log_from_file
 class LogApp(QtWidgets.QWidget):
     def __init__(self):
         super().__init__()
-
-        self.hello = ["Hallo Welt", "Hei maailma", "Hola Mundo", "Привет мир"]
-
+        
         self.button = QtWidgets.QPushButton("Read logs!")
         self.text = QtWidgets.QLabel("Hello World",
                                      alignment=QtCore.Qt.AlignmentFlag.AlignCenter)

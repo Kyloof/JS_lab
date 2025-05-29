@@ -28,6 +28,7 @@ class LogApp(QMainWindow):
         self.current_log = self.ui.log_list_widget.row(item)
 
         self.change_labels(self.log_list[self.current_log])
+        self.update_navigation_buttons()
 
     def change_labels(self, log):
         self.ui.host_browser.setText(log.host_address)
@@ -45,30 +46,34 @@ class LogApp(QMainWindow):
         self.ui.time_browser.setText('')
         self.ui.date_browser.setText('')
 
-
     def next_log(self):
         if self.current_log is None:
-            self.current_log = 0
-        else:
-            self.current_log += 1
-
-        if self.current_log >= len(self.log_list):
-            self.current_log -= 1
             return
 
-        self.ui.log_list_widget.setCurrentRow(self.current_log)
+        if self.current_log < len(self.log_list) - 1:
+            self.current_log += 1
+            self.ui.log_list_widget.setCurrentRow(self.current_log)
+
+        self.update_navigation_buttons()
 
     def prev_log(self):
         if self.current_log is None:
-            self.current_log = 0
-        else:
-            self.current_log -= 1
-
-        if self.current_log < 0:
-            self.current_log += 1
             return
 
-        self.ui.log_list_widget.setCurrentRow(self.current_log)
+        if self.current_log > 0:
+            self.current_log -= 1
+            self.ui.log_list_widget.setCurrentRow(self.current_log)
+
+        self.update_navigation_buttons()
+
+    def update_navigation_buttons(self):
+        if not self.log_list or self.current_log is None:
+            self.ui.previous_button.setEnabled(False)
+            self.ui.next_button.setEnabled(False)
+            return
+
+        self.ui.previous_button.setEnabled(self.current_log > 0)
+        self.ui.next_button.setEnabled(self.current_log < len(self.log_list) - 1)
 
     def load_logs(self, path):
         if path != self.previous_path:
@@ -81,6 +86,7 @@ class LogApp(QMainWindow):
             self.current_log = None
             self.reset_labels()
 
+            self.update_navigation_buttons()
 
     def browse_file(self):
         file_path, _ = QFileDialog.getOpenFileName(self, "Open Log File", "", "Log Files (*.log *.txt);;All Files (*)")

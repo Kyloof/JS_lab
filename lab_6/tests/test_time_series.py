@@ -56,7 +56,7 @@ def test_time_series_existing_date_key(time_series):
 
 
 def test_time_series_non_existing_date_key(time_series):
-    assert time_series[datetime(2025, 5, 10, 8)] == 2.5
+    assert time_series[datetime(2025, 5, 10, 8)] == ValueError
 
 
 def test_time_series_mean(time_series):

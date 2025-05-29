@@ -19,6 +19,7 @@ def test_eq_stations():
         0.5,
         0.5,
     )
+    print(station1)
     station2 = Station(
         "code",
         "1",
@@ -53,3 +54,4 @@ def test_eq_stations():
     )
     assert station1 == station2
     assert station2 != station3
+

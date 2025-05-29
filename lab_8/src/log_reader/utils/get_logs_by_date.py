@@ -1,4 +1,4 @@
-from logs.log import Log
+from log_reader.logs.log import Log
 from datetime import date
 
 

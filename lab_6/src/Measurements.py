@@ -4,7 +4,7 @@ from pathlib import Path
 from typing import Tuple, List, Dict, Iterator
 from SeriesValidator import SeriesValidator
 from TimeSeries import TimeSeries
-from utils import load_timeseries, mark_as_loaded
+from utils import load_timeseries
 from SeriesValidator import (
     OutlierDetector,
     ZeroSpikeDetector,
@@ -23,7 +23,7 @@ class Measurements:
         - load paths into a dictionary
         - if someone wants to use them, they can just give appropriate data, eg. '2023', 'O3', '1g', 
         and then if such data is stored it will be read from the csv that is stored in a dictionary.
-        - lazy load ✅💥💥💯💯💯💯💯💯💯💯💯💯💯💯💯💯💯💯💯💯💯💯💯💯💯💯💯💯💯💯💯💯💯💯💯
+        - lazy load 
         """
         for csv_path in self.path.glob("*.csv"):
             keys: Tuple[str, ...] = tuple(os.path.split(csv_path)[1].replace(".csv", "").split("_"))
@@ -138,7 +138,7 @@ class Measurements:
 
 
 if __name__ == "__main__":
-    m1: Measurements = Measurements("lab_6/data/measurements/")
+    m1: Measurements = Measurements("src/data/measurements")
     print(len(m1))
     print("24g" in m1)
     print("2g" in m1)

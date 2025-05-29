@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools >= 77.0.3"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name="lab_6"
+version="1.0"
+description="pytest and types"
+requires-python=">=3.8"
+authors = [
+    { name = "Jan Kubów" },
+    { name = "Dawid Wyskwarski"}
+]
+dependencies=["pytest"]
+
+[tool.setuptools.packages.find]
+where = ["src"]

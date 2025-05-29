@@ -89,7 +89,6 @@ class Ui_MainWindow:
         vertical_layout.addLayout(horizontal_date_bar)
         vertical_layout.addSpacerItem(QSpacerItem(10, 20, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed))
 
-        # Main horizontal layout with log list and details
         horizontal_main_bar = QHBoxLayout()
 
         log_list_widget = QListWidget(central_widget)
@@ -109,7 +108,7 @@ class Ui_MainWindow:
             h_layout.addWidget(label)
             browser = QTextBrowser(central_widget)
             browser.setMinimumSize(QSize(0, 15))
-            browser.setFixedHeight(50)  # Fixed height for all text browsers here
+            browser.setFixedHeight(50) 
             h_layout.addWidget(browser)
             return h_layout, browser
 

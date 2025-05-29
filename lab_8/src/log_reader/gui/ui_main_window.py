@@ -1,4 +1,4 @@
-from PySide6.QtCore import QSize, QRect, QCoreApplication
+from PySide6.QtCore import QSize, QRect, QCoreApplication, QDate
 from PySide6.QtWidgets import (
     QApplication, QMainWindow, QWidget, QLabel, QLineEdit, QToolButton,
     QVBoxLayout, QHBoxLayout, QListWidget, QTextBrowser, QDateEdit,
@@ -76,6 +76,7 @@ class Ui_MainWindow:
         self.upper_date_edit.setMinimumSize(QSize(130, 30))
         self.upper_date_edit.setMaximumSize(QSize(130, 50))
         self.upper_date_edit.setCalendarPopup(True)
+        self.upper_date_edit.setDate(QDate.currentDate())
         horizontal_date_bar.addWidget(self.upper_date_edit)
 
         horizontal_date_bar.addSpacerItem(QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum))

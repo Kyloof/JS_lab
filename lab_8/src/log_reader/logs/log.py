@@ -21,7 +21,7 @@ class Log:
         self._method = method
 
     def __str__(self) -> str:
-        return f"{self._host_address}\t{self._target_address}\t{self._date}\t{self._time}\t{self._status_code}\t{self._method}"
+        return f"{self._host_address} \t {self._target_address} \t {self._date} \t {self._time} \t {self._status_code} \t {self._method}"
 
     @property
     def date(self):
